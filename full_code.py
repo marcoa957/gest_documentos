@@ -16,14 +16,23 @@ def listar_documentos(pasta): # Função que busca o caminho da pasta
 def renomear_documento(): # Função para renomear o arquivo
     arquivo = input("Digite o nome do arquivo que deseja editar (com a extenção desejada): ") # Instrução para o usuário apontar qual documento deverá ser renomeado
     novo_nome = input("Qual nome deseja dar ao aquivo (com a devida extenção)? ") # Instrução para o usuário apontar qual será o novo nome do arquivo
-
     caminho_antigo = f"biblioteca/{arquivo}" # Inicializa variável com o caminho antigo
     caminho_novo = f"biblioteca/{novo_nome}" # Inicializa variável com o novo caminho
-
     os.rename(caminho_antigo, caminho_novo) # Renomeia arquivo
     print(f"Arquivo renomeado com sucesso para: {novo_nome}") # Mensagem de confirmação ao usuário
 
-def menu(): 
+def adicionar_documento(): # Função para adicionar um novo arquivo
+    arquivo = input("Digite o nome do arquivo que deseja adicionar (com a extenção desejada): ") # Comando para o usuário escrever o nome do arquivo que será adicionado (com a extenção)
+    novo_arquivo = f"biblioteca/{arquivo}" # Inicializa variável com o novo caminho.
+    open(novo_arquivo, 'w').close() # Abrir pasta, criar arquivo e fechar pasta.
+    print(f"Seu arquivo foi adicionado com sucesso!") # Mensagem de confirmação ao usuário
+
+def remover_documento():
+    arquivo = input("Digite o nome do arquivo que deseja remover (com a extenção desejada): ") # Comando para o usuário escrever o nome do arquivo que será removido (com a extenção)
+    os.remove(f"biblioteca/{arquivo}") # Remover o arquivo com base em seu caminho
+    print(f"Seu arquivo foi removido com sucesso!") # Mensagem de confirmação ao usuário
+
+def menu(): # Função com o menu de navegação
     while True:
         print("\n=== Sistema de Biblioteca Digital ===")
         print("1. Listar documentos")
@@ -31,24 +40,22 @@ def menu():
         print("3. Renomear documento")
         print("4. Remover documento")
         print("5. Sair")
-
         opcao = input("Escolha uma opção:")
 
-
+            # Variáveis de resposta do usuário
         if opcao == '1':
             listar_documentos("biblioteca")
-
-#        elif opcao == '2':
-#            adicionar_documento()
+        elif opcao == '2':
+            adicionar_documento()
         elif opcao == '3':
             renomear_documento()
-#        elif opcao == '4':
-#            remover_documento()
+        elif opcao == '4':
+            remover_documento()
         elif opcao == '5':
             print("Saindo...")
             break
         else:
             print("Opção inválida!")
 
-if __name__ == "__main__":
+if __name__ == "__main__": # Condicional para inicializar o programa
     menu()
